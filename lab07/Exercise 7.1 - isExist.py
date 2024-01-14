@@ -29,7 +29,7 @@ class BST:
     """BST"""
     def __init__(self):
         """init"""
-        self.root = BSTNode()
+        self.root = None
     def get_root(self):
         """to get root node"""
         return self.root
@@ -38,21 +38,16 @@ class BST:
         self.root = root
     def insert(self, data):
         """to insert data"""
-        current = self.root
-        if current.get_data() is None:
-            self.set_root(BSTNode(data))
-            return
-        while True:
-            if data < current.get_data():
-                if current.get_left() is None:
-                    current.set_left(BSTNode(data))
-                    break
-                current = current.left
+        def insert_node(root: BSTNode, data):
+            """to insert but recursive"""
+            if root is None:
+                return BSTNode(data)
+            elif root.get_data() < data:
+                root.set_right(insert_node(root.get_right(), data))
             else:
-                if current.get_right() is None:
-                    current.set_right(BSTNode(data))
-                    break
-                current = current.right
+                root.set_left(insert_node(root.get_left(), data))
+            return root
+        self.set_root(insert_node(self.root, data))
     def preorder(self):
         """traverse by preorder"""
         current = self.root
@@ -149,10 +144,9 @@ class BST:
             return root
         roots = self.root
         self.root = del_(roots, data)
-    def is_node_exist(self, root, key):
+    def is_node_exist(self, key):
         """check if node is exist"""
-        self.root = root
-        def find_node(node, key):
+        def find_node(node: BSTNode, key):
             """to find node"""
             if node is None:
                 return None
@@ -161,7 +155,7 @@ class BST:
             elif key > node.get_data():
                 return find_node(node.get_right(), key)
             else:
-                return root
+                return node
         return find_node(self.root, key) is not None
 def main():
     """Data Structures and Algorithms Lab  Binary Search Tree"""
@@ -177,6 +171,5 @@ def main():
             my_bst.delete(int(data))
         else:
             print("Invalid Condition")
-    key = int(input())
-    print(my_bst.is_node_exist(my_bst.get_root(), key))
+    print(my_bst.is_node_exist(int(input())))
 main()

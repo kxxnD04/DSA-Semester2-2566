@@ -1,4 +1,4 @@
-"""Delete"""
+"""Exercise Find Heigh"""
 class BSTNode:
     """node for binary tree"""
     def __init__(self, data=None):
@@ -142,7 +142,18 @@ class BST:
                     root.set_data(find_max(root.left))
                     root.left = del_(root.left, find_max(root.left))
             return root
-        self.root = del_(self.get_root(), data)
+        roots = self.root
+        self.root = del_(roots, data)
+    def find_height(self):
+        """find height of BST"""
+        if self.root is None:
+            return 0
+        def height(root: BSTNode):
+            """return height"""
+            if root is None:
+                return 0
+            return max(height(root.get_left()), height(root.get_right())) + 1
+        return height(self.get_root())
 def main():
     """Data Structures and Algorithms Lab  Binary Search Tree"""
     my_bst = BST()
@@ -157,6 +168,5 @@ def main():
             my_bst.delete(int(data))
         else:
             print("Invalid Condition")
-    my_bst.traverse()
-
+    print(my_bst.find_height())
 main()
