@@ -31,7 +31,7 @@ class ArrayStack:
 
     def is_empty(self):
         """check empty data"""
-        return len(self.data) == 0
+        return self.size == 0
 
     def get_stack_top(self):
         """get top of the stack"""
@@ -43,7 +43,7 @@ class ArrayStack:
 
     def get_size(self):
         """return size"""
-        return len(self.data)
+        return self.size
 
     def print_stack(self):
         """PRINT"""
